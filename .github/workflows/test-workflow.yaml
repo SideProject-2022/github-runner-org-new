@@ -2,7 +2,7 @@ name: test checkout
 on: push
 jobs:
   build:
-    runs-on: custom-label
+    runs-on: ubuntu-20.04
     environment: dev
     steps:
     - uses: actions/checkout@v2
