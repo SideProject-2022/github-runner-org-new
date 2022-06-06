@@ -2,7 +2,7 @@ name: test checkout
 on: push
 jobs:
   build:
-    runs-on: custom-runner
+    runs-on: custom-label
     steps:
     - uses: actions/checkout@v2
     - name: Run a one-line script
