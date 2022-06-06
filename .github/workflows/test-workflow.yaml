@@ -3,6 +3,7 @@ on: push
 jobs:
   build:
     runs-on: custom-runner
+    environment: dev
     steps:
     - uses: actions/checkout@v2
     - name: Run a one-line script
@@ -10,3 +11,20 @@ jobs:
         echo Hello, world!
         ls -al
         echo "Org Level self-hosted runner test new"
+    - name: Configure AWS Credentials
+      id: credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-region: ap-northeast-2
+        role-to-assume: ${{ secrets.AWS_ARN }}
+    - name: kubectl
+      uses: azure/setup-kubectl@v1
+      with:
+        version: 'v1.20.0'
+    - name: helm
+      uses: azure/setup-helm@v1
+      with:
+        version: 'v3.7.2'
+    - name: get k8s kube-config
+      run: |
+        aws eks update-kubeconfig --name ${{ secrets.cluster }}
