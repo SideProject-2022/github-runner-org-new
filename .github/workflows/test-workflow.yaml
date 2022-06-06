@@ -33,3 +33,6 @@ jobs:
     - name: get k8s kube-config
       run: |
         aws eks update-kubeconfig --name ${{ secrets.cluster }}
+    - name: test
+      run: |
+        kubectl get namespace
